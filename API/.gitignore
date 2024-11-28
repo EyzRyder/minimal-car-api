@@ -27,7 +27,7 @@ obj/
 
 ### macOS ###
 # General
-DS_Store
+.DS_Store
 .AppleDouble
 .LSOverride
 
@@ -104,4 +104,3 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,macos,linux,dotnetcore,visualstudiocode
-.env
