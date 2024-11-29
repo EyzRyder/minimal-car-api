@@ -3,6 +3,9 @@ using MinimalCarApi.Dominio.DTOs;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+//builder.Services.AddScopped<>
+
 builder.Services.AddDbContext<DbContexto>(options =>
 {
     options.UseMySql(
