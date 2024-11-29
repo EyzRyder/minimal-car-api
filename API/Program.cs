@@ -50,7 +50,6 @@ app.MapPost("/administradoeres/login", ([FromBody] LoginDTO loginDTO, IAdministr
 #region Veiculos
 app.MapPost("/veiculos", ([FromBody] VeiculoDTO veiculoDTO, IVeiculoServico veiculoServico) =>
 {
-
     var veiculo = new Veiculo
     {
         Nome = veiculoDTO.Nome,
@@ -67,6 +66,13 @@ app.MapGet("/veiculos", ([FromQuery] int? pagina, IVeiculoServico veiculoServico
     var veiculos = veiculoServico.Todos(pagina);
 
     return Results.Ok(veiculos);
+}).WithTags("Veiculos");
+
+app.MapGet("/veiculos/{id}", ([FromRoute] int id, IVeiculoServico veiculoServico) =>
+{
+    var veiculo = veiculoServico.BuscaPorId(id);
+    if (veiculo == null) return Results.NotFound();
+    return Results.Ok(veiculo);
 }).WithTags("Veiculos");
 #endregion
 
