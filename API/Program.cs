@@ -3,8 +3,11 @@ using MinimalCarApi.Dominio.DTOs;
 using MinimalCarApi.Dominio.Interfaces;
 using MinimalCarApi.Dominio.Servicos;
 using MinimalCarApi.Dominio.ModelViews;
+using MinimalCarApi.Dominio.Entidades;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
+
+#region Builder
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,10 +26,14 @@ builder.Services.AddDbContext<DbContexto>(options =>
 });
 
 var app = builder.Build();
+#endregion
 
+#region Home
 app.MapGet("/", () => Results.Json(new Home()));
+#endregion
 
-app.MapPost("/login", ([FromBody] LoginDTO loginDTO, IAdministradorServico administradorServico) =>
+#region Administradoeres
+app.MapPost("/administradoeres/login", ([FromBody] LoginDTO loginDTO, IAdministradorServico administradorServico) =>
 {
     if (administradorServico.Login(loginDTO) != null)
     {
@@ -37,8 +44,30 @@ app.MapPost("/login", ([FromBody] LoginDTO loginDTO, IAdministradorServico admin
         return Results.Unauthorized();
     }
 });
+#endregion
 
+
+#region Veiculos
+app.MapPost("/veiculos", ([FromBody] VeiculoDTO veiculoDTO, IVeiculoServico veiculoServico) =>
+{
+
+
+    var veiculo = new Veiculo
+    {
+        Nome = veiculoDTO.Nome,
+        Marca = veiculoDTO.Marca,
+        Ano = veiculoDTO.Ano
+    };
+    veiculoServico.Incluir(veiculo);
+
+    return Results.Created($"/veiculo/{veiculo.Id}", veiculo);
+});
+#endregion
+
+#region
 app.UseSwagger();
 app.UseSwaggerUI();
 
 app.Run();
+
+#endregion
