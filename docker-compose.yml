@@ -12,9 +12,9 @@ services:
     ports:
       - "${DB_PORT}:3306"
     volumes:
+
       - mysql_data:/var/lib/mysql
       - ./mysql.cnf:/etc/mysql/conf.d/mysql.cnf
-
 
 volumes:
   mysql_data:

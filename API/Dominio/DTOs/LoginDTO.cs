@@ -1,4 +1,4 @@
-namespace MinimalCarApi.DTOs;
+namespace MinimalCarApi.Dominio.DTOs;
 
 public class LoginDTO{
     public string Email {get;set;} = default;
