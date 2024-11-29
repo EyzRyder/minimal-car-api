@@ -3,7 +3,7 @@ var app = builder.Build();
 
 app.MapGet("/", () => "Hello World!");
 
-app.MapPost("/login", (LoginDTO loginDTO) =>
+app.MapPost("/login", (MinimalCarApi.DTOs.LoginDTO loginDTO) =>
 {
     if (loginDTO.Email == "adm@test.com" && loginDTO.Senha == "123456")
     {
@@ -16,8 +16,3 @@ app.MapPost("/login", (LoginDTO loginDTO) =>
 });
 
 app.Run();
-
-public class LoginDTO{
-    public string Email {get;set;} = default;
-    public string Senha {get;set;} = default;
-}
